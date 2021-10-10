@@ -17,10 +17,10 @@ import java.util.*;
 public class Loader {
     public static void main(String[] args) {
 
-        String jsonResult = "";
+        String jsonResult;
         try {
             jsonResult = getJSONString();
-            printResult(parseResultForMinimalDef(jsonResult), "Minimum difference (degrees):");
+            printResult(parseResultForMinimalDiff(jsonResult), "Minimum difference (degrees):");
             printResult(parseResultForMaxDurationOfDay(jsonResult), "Maximum duration (ms):");
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
@@ -29,8 +29,8 @@ public class Loader {
 
     }
 
-    private static LocalDate getDateFromLong(long dt) {
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli(dt), TimeZone.getDefault().toZoneId()).toLocalDate();
+    private static LocalDate getDateFromLong(long date) {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(date), TimeZone.getDefault().toZoneId()).toLocalDate();
     }
 
     private static double getTempForParam(JSONObject jsonObject, String param) {
@@ -72,7 +72,7 @@ public class Loader {
         return response.getBody();
     }
 
-    private static HashMap<Long, Double> parseResultForMinimalDef(String jsonResult) {
+    private static HashMap<Long, Double> parseResultForMinimalDiff(String jsonResult) {
         HashMap<Long, Double> resultMap = new HashMap<>();
         try {
             JSONArray daily = getDailyResult(jsonResult);
